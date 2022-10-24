@@ -38,3 +38,14 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+  deploy:
+    name: Execute command over SSH to deploy built container
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connect and call command
+        uses: appleboy/ssh-action@master
+        with:
+          username: root
+          host: ${{ secrets.SSH_HOST }}
+          key: ${{ secrets.SSH_KEY }}
+          script: cd ${{ secrets.WORK_DIR }}; docker compose pull; docker compose up -d
