@@ -14,7 +14,7 @@ EXPOSE 80
 EXPOSE 443
 
 # Specify mount point
-VOLUME /pem
+VOLUME /
 
 # Run the haproxy server
 ENTRYPOINT ["haproxy", "-f", "haproxy.cfg"]
