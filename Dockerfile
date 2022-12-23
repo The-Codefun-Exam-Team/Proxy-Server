@@ -3,18 +3,20 @@
 FROM haproxy:2.6.6-alpine
 
 # Set working directory
-WORKDIR /
+WORKDIR /haconfig
 
-# Copy config file
-COPY haproxy.cfg ./haproxy.cfg
+# Copy config file to /haconfig/haproxy.cfg
+COPY haproxy.cfg ./
 
 # Expose HTTP and HTTPS port
 EXPOSE 80
-
 EXPOSE 443
 
-# Specify mount point
+# Specify mount point for certs and pems
 VOLUME /cert
+
+# Check the config file
+RUN ["haproxy", "-f", "haproxy.cfg", "-c"]
 
 # Run the haproxy server
 ENTRYPOINT ["haproxy", "-f", "haproxy.cfg"]
