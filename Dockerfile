@@ -15,8 +15,5 @@ EXPOSE 443
 # Specify mount point for certs and pems
 VOLUME /cert
 
-# Check the config file
-RUN ["haproxy", "-f", "haproxy.cfg", "-c"]
-
 # Run the haproxy server
 ENTRYPOINT ["haproxy", "-f", "haproxy.cfg"]
